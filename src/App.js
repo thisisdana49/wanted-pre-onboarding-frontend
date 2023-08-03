@@ -1,25 +1,21 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
+import TodoPage from './pages/TodoPage'
 import './App.css';
 
-function App() {
+const App = () => {
+  const isLoggedIn = false;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/signin" element={isLoggedIn ? <Navigate to="/todo" /> : <SignInPage />} />
+        <Route path="/signup" element={isLoggedIn ? <Navigate to="/todo" /> : <SignUpPage />} />
+        <Route path="/todo" element={!isLoggedIn ? <Navigate to="/signin" /> : <TodoPage />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
