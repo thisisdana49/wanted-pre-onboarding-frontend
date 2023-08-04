@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 const Header = ({ isLoggedIn }) => {
   const handleLogout = () => {
-    // 로그아웃 처리 로직 구현 예정
+    localStorage.removeItem('accessToken');
+    window.location.reload();
   };
 
   return (
@@ -11,11 +12,10 @@ const Header = ({ isLoggedIn }) => {
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/todo">Todo</Link>
           </li>
           {isLoggedIn ? (
             <li>
-              <Link to="/todo">Todo</Link>
               <button onClick={handleLogout}>Logout</button>
             </li>
           ) : (
