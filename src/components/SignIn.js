@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const SignIn = () => {
+const SignIn = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -38,12 +38,11 @@ const SignIn = () => {
         },
       })
       .then((response) => {
-        console.log('로그인 성공:', response.data);
         localStorage.setItem('accessToken', response.data.access_token);
+        onLogin();
         navigate('/todo');
       })
       .catch((error) => {
-        console.error('로그인 실패:', error.response.data);
         alert('로그인에 실패했습니다. 다시 시도해주세요.');
       });
   };

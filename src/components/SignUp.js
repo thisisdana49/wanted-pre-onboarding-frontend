@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const SignUp = () => {
+const SignUp = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -41,11 +41,10 @@ const SignUp = () => {
       },
     })
     .then((response) => {
-      console.log('회원가입 성공:', response.data);
+      onLogin();
       navigate('/signin');
     })
     .catch((error) => {
-      console.error('회원가입 실패:', error.response.data);
       alert('회원가입에 실패했습니다. 다시 시도해주세요.');
     });
   };
