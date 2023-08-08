@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TodoList from '../components/TodoList';
+import './TodoPage.css'
 
 const TodoPage = () => {
   const [todos, setTodos] = useState([]);
@@ -89,19 +90,25 @@ const TodoPage = () => {
 
 
   return (
-    <div>
-      <div className="page-container">
-        <TodoList todos={todos} onTodoUpdate={handleTodoUpdate} onTodoDelete={handleTodoDelete} />
-      </div>
-      <h2>새로운 Todo 추가</h2>
+    <div className='todo-container'>
+      <h2>My Todo List</h2>
       <div>
         <input
+          data-testid="new-todo-input"
           type="text"
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
         />
-        <button onClick={handleAddTodo}>추가</button>
+        <button 
+          data-testid="new-todo-add-button"
+          onClick={handleAddTodo}
+        >
+            추가
+        </button>
       </div>
+      <div className="page-container">
+        <TodoList todos={todos} onTodoUpdate={handleTodoUpdate} onTodoDelete={handleTodoDelete} />
+      </div>      
     </div>
   );
 };

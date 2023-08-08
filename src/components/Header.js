@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import './Header.css'
 
 const Header = ({ isLoggedIn }) => {
   const handleLogout = () => {
@@ -7,24 +8,25 @@ const Header = ({ isLoggedIn }) => {
     window.location.reload();
   };
 
+  const location = useLocation();
+
   return (
-    <header>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/todo">Todo</Link>
-          </li>
-          {isLoggedIn ? (
-            <li>
-              <button onClick={handleLogout}>Logout</button>
-            </li>
+    <header className="header-container">
+      <div></div>
+      <div>
+        <Link to="/todo">Todo</Link>
+      </div>
+      {isLoggedIn ? (
+        <div onClick={handleLogout}>Logout</div>
+      ) : (
+        <div>
+          {location.pathname === '/signin' ? (
+            <Link to="/signup">Sign Up</Link>
           ) : (
-            <li>
-              <Link to="/signin">Sign In</Link>
-            </li>
+            <Link to="/signin">Sign In</Link>
           )}
-        </ul>
-      </nav>
+        </div>
+      )}
     </header>
   );
 };

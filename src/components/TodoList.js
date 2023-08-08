@@ -17,15 +17,14 @@ const TodoList = ({ todos, onTodoUpdate, onTodoDelete }) => {
 
   return (
     <div className="todo-list">
-      <h2>투두 목록</h2>
       <ul>
         {todos.map((item) => (
           <li key={item.id}>
             {editTodoId === item.id ? (
               <>
-                <input type="text" value={editTodoText} onChange={handleEditInputChange} />
-                <button onClick={() => handleEditSubmit(item.id, item.isCompleted)}>제출</button>
-                <button onClick={() => setEditTodoId(null)}>취소</button>
+                <input data-testid="modify-input" type="text" value={editTodoText} onChange={handleEditInputChange} />
+                <button data-testid="submit-button" onClick={() => handleEditSubmit(item.id, item.isCompleted)}>제출</button>
+                <button data-testid="cancel-button" onClick={() => setEditTodoId(null)}>취소</button>
               </>
             ) : (
               <>
@@ -35,11 +34,21 @@ const TodoList = ({ todos, onTodoUpdate, onTodoDelete }) => {
                   onChange={() => onTodoUpdate(item.id, item.todo, !item.isCompleted)}
                 />
                 <span className={item.isCompleted ? 'completed' : 'incompleted'}>{item.todo}</span>
-                <button onClick={() => {
+                <button 
+                  data-testid="modify-button"
+                  onClick={() => {
                   setEditTodoId(item.id);
                   setEditTodoText(item.todo);
-                }}>수정</button>
-                <button onClick={() => onTodoDelete(item.id)}>삭제</button>
+                }}
+                >
+                  수정
+                </button>
+                <button 
+                  data-testid="delete-button"
+                  onClick={() => onTodoDelete(item.id)}
+                >
+                  삭제
+                </button>
               </>
             )}
           </li>
